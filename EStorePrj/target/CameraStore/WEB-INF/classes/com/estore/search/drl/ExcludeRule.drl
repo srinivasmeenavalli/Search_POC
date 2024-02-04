@@ -1,0 +1,48 @@
+package com.estore.search.drl;
+
+import com.estore.search.vo.Request;
+import com.estore.search.vo.Exclude;
+import com.estore.search.vo.RefinementRequest;
+import java.util.List;
+import java.util.ArrayList;
+
+rule "exclude_canon"
+salience 1
+    when
+        Request((searchTerm != null) , (searchTerm.equalsIgnoreCase("Canon")))
+    then
+    System.out.println("exclude_canon rule is  - "); 
+        Exclude exclude = new Exclude();
+        List excludeValue = new ArrayList();
+        excludeValue.add("product.category_id:575");
+        excludeValue.add("product.category_id:574");
+        exclude.setExclude(excludeValue);
+        insert(exclude);
+end
+
+rule "exclude_colour_orange"
+salience 2
+    when
+        Request((refinements != null) , ( $refinement : refinements ))
+        RefinementRequest(refinementName.equalsIgnoreCase("Colour") , refinementValue.equalsIgnoreCase("Orange")) from $refinement
+    then
+    System.out.println("exclude_colour_orange rule is  - ");  
+        Exclude exclude = new Exclude();
+        List excludeValue = new ArrayList();
+        excludeValue.add("Brand:apple");
+        exclude.setExclude(excludeValue);
+        insert(exclude);
+end
+
+rule "exclude_default"
+salience 0
+    when
+        Request(refinements != null || searchTerm != null)
+    then
+    System.out.println("exclude_default rule ");  
+        Exclude exclude = new Exclude();
+        List excludeValue = new ArrayList();
+        excludeValue.add("product.category_id: 575");
+        exclude.setExclude(excludeValue);
+        insert(exclude);
+end

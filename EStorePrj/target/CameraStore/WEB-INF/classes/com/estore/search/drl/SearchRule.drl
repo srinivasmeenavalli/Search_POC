@@ -1,0 +1,48 @@
+package com.estore.search.drl;
+
+import com.estore.search.vo.Request;
+import com.estore.search.vo.Seach;
+import com.estore.search.vo.RefinementRequest;
+import java.util.List;
+import java.util.ArrayList;
+
+rule "search_Canon"
+salience 1
+    when
+        Request((searchTerm != null) , (searchTerm.equalsIgnoreCase("Canon")))
+    then
+    System.out.println("search_canon rule is  - "); 
+        Seach search = new Seach();
+        List searchField = new ArrayList();
+        searchField.add("product.short_desc");
+        searchField.add("Brand");
+        search.setSearch(searchField);
+        insert(search);
+end
+
+rule "search_colour_orange"
+salience 2
+    when
+        Request((refinements != null) , ( $refinement : refinements ))
+        RefinementRequest(refinementName.equalsIgnoreCase("Colour") , refinementValue.equalsIgnoreCase("Orange")) from $refinement
+    then
+    System.out.println("navigation_colour_orange rule is  - ");  
+        Seach search = new Seach();
+        List searchField = new ArrayList();
+        searchField.add("Brand");
+        search.setSearch(searchField);
+        insert(search);
+end
+
+rule "search_default"
+salience 0
+    when
+        Request(refinements != null || searchTerm != null)
+    then
+    System.out.println("search_default rule  - "); 
+       Seach search = new Seach();
+        List searchField = new ArrayList();
+        searchField.add("_text_");
+        search.setSearch(searchField);
+        insert(search);
+end

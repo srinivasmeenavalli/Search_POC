@@ -1,0 +1,54 @@
+package com.estore.search.drl;
+
+import com.estore.search.vo.Request;
+import com.estore.search.vo.Navigation;
+import com.estore.search.vo.RefinementRequest;
+import java.util.List;
+import java.util.ArrayList;
+
+rule "navigation_Canon"
+salience 1
+    when
+        Request((searchTerm != null) , (searchTerm.equalsIgnoreCase("Canon")))
+    then
+    System.out.println("navigation_canon rule is  - "); 
+        Navigation navigation = new Navigation();
+        List navigationValue = new ArrayList();
+        navigationValue.add("Price");
+        navigationValue.add("Colour");
+        navigationValue.add("Rating");
+        navigation.setNavigation(navigationValue);
+        insert(navigation);
+end
+
+rule "navigation_colour_orange"
+salience 2
+    when
+        Request((refinements != null) , ( $refinement : refinements ))
+        RefinementRequest(refinementName.equalsIgnoreCase("Colour") , refinementValue.equalsIgnoreCase("Orange")) from $refinement
+    then
+    System.out.println("navigation_colour_orange rule is  - "); 
+        Navigation navigation = new Navigation();
+        List navigationValue = new ArrayList();
+        navigationValue.add("Price");
+        navigation.setNavigation(navigationValue);
+        insert(navigation);
+end
+
+rule "navigation_default"
+salience 0
+    when
+       
+    then
+    System.out.println("navigation_default rule  - "); 
+        Navigation navigation = new Navigation();
+        List navigationValue = new ArrayList();
+        navigationValue.add("Brand");
+        navigationValue.add("Price");
+        navigationValue.add("Colour");
+        navigationValue.add("Rating");
+        navigationValue.add("Features");
+        navigation.setNavigation(navigationValue);
+        insert(navigation);
+end
+

@@ -1,0 +1,55 @@
+<dataConfig>
+  <dataSource type="FileDataSource"/>
+  <document>
+    <!-- this outer processor generates a list of files satisfying the conditions specified in the attributes -->
+<entity name="camerastore" processor="FileListEntityProcessor" fileName="camerastore.xml" recursive="true" rootEntity="false" dataSource="null" baseDir="${solr.install.dir}\index\camera">
+      <!-- this processor extracts content using Xpath from each file found -->
+
+       <entity name="nested" processor="XPathEntityProcessor" forEach="/RECORDS/RECORD" url="${camerastore.fileAbsolutePath}" >
+              <field column="id" xpath="/RECORDS/RECORD/PROP[@NAME='product.sku']/PVAL"/>
+              <field column="product.category_id" xpath="/RECORDS/RECORD/PROP[@NAME='product.category_id']/PVAL"/>
+			  <field column="product.name" xpath="/RECORDS/RECORD/PROP[@NAME='product.name']/PVAL"/>
+			  <field column="Price" xpath="/RECORDS/RECORD/PROP[@NAME='product.price']/PVAL"/>
+			
+			  <field column="product.img_url_thumbnail" xpath="/RECORDS/RECORD/PROP[@NAME='product.img_url_thumbnail']/PVAL"/>
+			  <field column="camera.Optical zoom" xpath="/RECORDS/RECORD/PROP[@NAME='camera.Optical zoom']/PVAL"/>
+			  <field column="product.brand.img_url" xpath="/RECORDS/RECORD/PROP[@NAME='product.brand.img_url']/PVAL"/>
+			  <field column="Brand" xpath="/RECORDS/RECORD/PROP[@NAME='product.brand.name']/PVAL"/>
+			  <field column="camera.Maximum video resolution" xpath="/RECORDS/RECORD/PROP[@NAME='camera.Maximum video resolution']/PVAL"/>
+			  <field column="product.review.count" xpath="/RECORDS/RECORD/PROP[@NAME='product.review.count']/PVAL"/>
+			  <field column="camera.Focal length" xpath="/RECORDS/RECORD/PROP[@NAME='camera.Focal length']/PVAL"/>
+			  <field column="camera.Built-in processor" xpath="/RECORDS/RECORD/PROP[@NAME='camera.Built-in processor']/PVAL"/>
+			  <field column="product.code" xpath="/RECORDS/RECORD/PROP[@NAME='product.code']/PVAL"/>
+			  <field column="camera.Mac compatibility" xpath="/RECORDS/RECORD/PROP[@NAME='camera.Mac compatibility']/PVAL"/>
+			  <field column="camera.Compatible operating systems" xpath="/RECORDS/RECORD/PROP[@NAME='camera.Compatible operating systems']/PVAL"/>
+			  <field column="camera.warranty" xpath="/RECORDS/RECORD/PROP[@NAME='camera.warranty']/PVAL"/>
+			  <field column="camera.Minimum RAM" xpath="/RECORDS/RECORD/PROP[@NAME='camera.Minimum RAM']/PVAL"/>
+			  <field column="camera.Maximum frame rate" xpath="/RECORDS/RECORD/PROP[@NAME='camera.Maximum frame rate']/PVAL"/>
+			  <field column="product.long_desc" xpath="/RECORDS/RECORD/PROP[@NAME='product.long_desc']/PVAL"/>
+			  <field column="camera.Maximum image resolution" xpath="/RECORDS/RECORD/PROP[@NAME='camera.Maximum image resolution']/PVAL"/>
+			  <field column="camera.Minimum hard disk space" xpath="/RECORDS/RECORD/PROP[@NAME='camera.Minimum hard disk space']/PVAL"/>
+			  <field column="product.id" xpath="/RECORDS/RECORD/PROP[@NAME='product.id']/PVAL"/>
+			 
+			  <field column="product.short_desc" xpath="/RECORDS/RECORD/PROP[@NAME='product.short_desc']/PVAL"/>
+			  <field column="product.release_date" xpath="/RECORDS/RECORD/PROP[@NAME='product.release_date']/PVAL"/>
+			  <field column="product.img_gallery_pair" xpath="/RECORDS/RECORD/PROP[@NAME='product.img_gallery_pair']/PVAL"/>
+			  <field column="camera.Source data-sheet" xpath="/RECORDS/RECORD/PROP[@NAME='camera.Source data-sheet']/PVAL"/>
+			  <field column="product.img_url_large" xpath="/RECORDS/RECORD/PROP[@NAME='product.img_url_large']/PVAL"/>
+			  <field column="camera.Sensor type" xpath="/RECORDS/RECORD/PROP[@NAME='camera.Sensor type']/PVAL"/>
+			  <field column="camera.Minimum processor" xpath="/RECORDS/RECORD/PROP[@NAME='camera.Minimum processor']/PVAL"/>
+			  <field column="camera.Interface" xpath="/RECORDS/RECORD/PROP[@NAME='camera.Interface']/PVAL"/>
+			  <field column="Features" xpath="/RECORDS/RECORD/PROP[@NAME='product.features']/PVAL"/>
+			  <field column="common.record_type" xpath="/RECORDS/RECORD/PROP[@NAME='common.record_type']/PVAL"/>
+			  <field column="product.analytics.buying_sessions_count" xpath="/RECORDS/RECORD/PROP[@NAME='product.analytics.buying_sessions_count']/PVAL"/>
+			  <field column="product.analytics.viewing_sessions_count" xpath="/RECORDS/RECORD/PROP[@NAME='product.analytics.viewing_sessions_count']/PVAL"/>
+			  <field column="product.analytics.sales_count" xpath="/RECORDS/RECORD/PROP[@NAME='product.analytics.sales_count']/PVAL"/>
+			  <field column="product.analytics.total_sales" xpath="/RECORDS/RECORD/PROP[@NAME='product.analytics.total_sales']/PVAL"/>
+			  <field column="product.analytics.conversion_rate" xpath="/RECORDS/RECORD/PROP[@NAME='product.analytics.conversion_rate']/PVAL"/>
+			  <field column="Colour" xpath="/RECORDS/RECORD/PROP[@NAME='camera.Colour of product']/PVAL"/>
+			  <field column="Rating" xpath="/RECORDS/RECORD/PROP[@NAME='product.review.avg_rating']/PVAL"/>
+			  
+			  
+      </entity>
+	  </entity>
+  </document>
+</dataConfig>
